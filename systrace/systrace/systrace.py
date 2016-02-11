@@ -27,6 +27,12 @@ import os
 
 import util
 
+import logging
+sys.stdout.write("Init logging...\n")
+logging.getLogger().setLevel(logging.DEBUG)
+logging.info("Test log")
+sys.stdout.write(" DONE!\n")
+
 
 # The default agent directory.
 DEFAULT_AGENT_DIR = 'agents'
@@ -173,10 +179,12 @@ def create_agents(options, categories):
         if f:
           f.close()
       if module:
+        logging.info("Trying to initializa agent [%s]", pathname)
         agent = module.try_create_agent(options, categories)
         if not agent:
           continue
         agents.append(agent)
+        logging.info("Agent [%s] initialized", pathname)
   return agents
 
 
