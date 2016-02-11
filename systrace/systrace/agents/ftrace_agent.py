@@ -8,6 +8,10 @@ import time
 
 import systrace_agent
 
+import logging
+logging.getLogger().setLevel(logging.DEBUG)
+logging.info("Test log")
+
 class FtraceAgentIo(object):
   @staticmethod
   def writeFile(path, data):
@@ -131,11 +135,12 @@ class FtraceAgent(systrace_agent.SystraceAgent):
       # self._fio.writeFile(FT_PRINT_TGID, '1')
 
       for category in self._categories:
+        logging.inf("Enabling: %s", category)
         self._category_enable(category)
 
       self._fio.writeFile(FT_TRACE, '')
 
-      print "starting tracing."
+      logging.info("starting tracing")
       sys.stdout.flush()
 
       self._fio.writeFile(FT_TRACE_ON, '1')
