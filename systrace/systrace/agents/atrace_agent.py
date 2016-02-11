@@ -13,6 +13,9 @@ import zlib
 import systrace_agent
 import util
 
+import logging
+logging.getLogger().setLevel(logging.DEBUG)
+
 # Text that ADB sends, but does not need to be displayed to the user.
 ADB_IGNORE_REGEXP = r'^capturing trace\.\.\. done|^capturing trace\.\.\.'
 # The number of seconds to wait on output from ADB.
@@ -154,6 +157,8 @@ class AtraceAgent(systrace_agent.SystraceAgent):
 
       tracer_args = util.construct_adb_shell_command(
           atrace_args, self._options.device_serial)
+
+      logging.info("Trace command:\n%s", tracer_args)
 
     return tracer_args
 
